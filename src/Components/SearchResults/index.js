@@ -1,23 +1,20 @@
-import React,{Fragment} from 'react'
+import React,{Fragment} from 'react';
+import {albums, artistName, loading, error} from '../../hooks/useFetch';
 
-const SearchResults = ({titulo, handleClick}) =>{
+const SearchResults = ({albums, artistName, handleClick}) =>{
     return (
         <Fragment>
-                {titulo.map((cancion)=>{
-                    const { key, title, author, time } = cancion;
-                    
-
-                    return (
-                        <article className="cancion" key={key}  >
-                            <div className="slotA"><h3 >{title}</h3></div>
-                            <div className="slotB"><h4 >{author}</h4></div>
-                            <div className="slotC">
-                                <p > {time} min.</p>
-                                <button className="btn" onClick={(e) => handleClick(e, cancion)} >Add to Library</button>
-                            </div>
-                        </article>
-                    )
-                })}
+            {albums.map((album, idx) => (
+                <article className="cancion" key={idx}>
+                    <div className="slotA">
+                        <h3>{album.nombre}</h3>
+                    </div>
+                    <div className="slotC">
+                        <p>{album.año}</p>
+                        <button className="btn" onClick={(e) => handleClick(e, album)}>Add to Library</button>
+                    </div>
+                </article>
+            ))}
         </Fragment>
     )
 }

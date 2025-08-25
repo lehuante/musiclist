@@ -11,26 +11,24 @@ import useFetch from './hooks/useFetch';
 
 
 function App() {
-  const [titulo, setTitulo] = useState([]);
-  const [track, setTrack] = useState([]);
+  //const [titulo, setTitulo] = useState([]);
   const [searchUrl, setSearchUrl] = useState(null);
+  const { albums, artistName, loading, error } = useFetch(searchUrl);
     
-  const { data } = useFetch(searchUrl);
-    
-  const handleSearch = (artistName) => {
-    setSearchUrl(`https://pokeapi.co/api/v2/pokemon/${artistName}`);
-  };
+  const handleSearch = (artist) => {
+    setSearchUrl(`https://www.theaudiodb.com/api/v1/json/2/discography.php?s=${artistName}`);
+  }; 
   
  
   
-    const handleClick = (e, cancion) => {
+   /* const handleClick = (e, cancion) => {
     console.log('Canción clicada:', cancion.title); 
     setTrack(prevTrack => [...prevTrack, cancion]);
    };
   
   useEffect(() => {
     console.log("Actualizado");
-  }, [data]);
+  }, [data]);*/
 
   return (
     <div className="App">
@@ -39,9 +37,7 @@ function App() {
           <>
             <SearchBar onSearch={handleSearch}/>
             <Header />
-            <SearchResults className="search"  titulo={data?.album || []} handleClick={handleClick}/> 
-            <HeaderB />
-            <Library track={track}  />
+            <SearchResults className="search"   artist={artistName} albums={albums} loading={loading} error={error}/>             
           </>
         } />
         <Route path='/song/:id' element={<SongInfo />} />
