@@ -11,6 +11,7 @@ const useFetch = (url) => {
     useEffect(() => {
         if (!url) return;
         const fetchData = async () => {
+            setLoading(true);
             try {
                 const response = await axios.get(url);
                 const albumsData = response.data?.album || [];

@@ -5,19 +5,33 @@ import HeaderB from './Components/Headerb';
 import SearchResults from './Components/SearchResults'; 
 import Library from './Components/Library';
 import SongInfo from './Components/SongInfo'; 
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import SearchBar from './Components/SearchBar';
 import useFetch from './hooks/useFetch';
+import SongDetail from './Components/SongDetail';
 
 
 function App() {
   //const [titulo, setTitulo] = useState([]);
+  const [track, setTrack] = useState([]);
   const [searchUrl, setSearchUrl] = useState(null);
   const { albums, artistName, loading, error } = useFetch(searchUrl);
     
   const handleSearch = (artist) => {
-    setSearchUrl(`https://www.theaudiodb.com/api/v1/json/2/discography.php?s=${artistName}`);
+    setSearchUrl(`https://www.theaudiodb.com/api/v1/json/2/discography.php?s=${encodeURIComponent(artist)}`);
   }; 
+  const navigate = useNavigate();
+  const handleVerMas = (e, album) => {
+    // Navega a la ruta y pasa los datos del álbum
+    navigate(`/song/${album.nombre || album.strAlbum}`, {
+        state: {
+            nombre: album.nombre || album.strAlbum,
+            año: album.año || album.intYearReleased,
+            artist: artistName
+        }
+    });
+    console.log('Ver mas', album);
+  };
   
  
   
@@ -37,10 +51,10 @@ function App() {
           <>
             <SearchBar onSearch={handleSearch}/>
             <Header />
-            <SearchResults className="search"   artist={artistName} albums={albums} loading={loading} error={error}/>             
+            <SearchResults className="search"   artistName={artistName} albums={albums} loading={loading} error={error} handleVerMas={handleVerMas}/>             
           </>
         } />
-        <Route path='/song/:id' element={<SongInfo />} />
+        <Route path='/song/:id' element={<SongDetail />} />
       </Routes>
     </div>
   );

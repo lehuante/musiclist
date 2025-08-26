@@ -1,7 +1,6 @@
 .App {
   width: 50%;
-  background: linear-gradient( to bottom, rgb(0, 0, 0), rgb(128, 128, 128));
-}
+background-color: gray;}
 header {
   text-align: center;
   padding: .5rem;
