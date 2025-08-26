@@ -23,7 +23,7 @@ function App() {
   const navigate = useNavigate();
   const handleVerMas = (e, album) => {
     // Navega a la ruta y pasa los datos del álbum
-    navigate(`/song/${album.nombre || album.strAlbum}`, {
+    navigate(`/song/id`, {
         state: {
             nombre: album.nombre || album.strAlbum,
             año: album.año || album.intYearReleased,
