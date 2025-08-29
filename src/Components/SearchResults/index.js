@@ -1,4 +1,6 @@
-import React,{Fragment} from 'react';
+import { MusicSlot, AlbumInfo, AlbumYear,StyledButton } from './styles';
+
+
 
 const SearchResults = ({ albums = [], artistName = '', loading = false, error = null, handleVerMas }) => {
     if (loading) return <div>Cargando...</div>;
@@ -6,15 +8,15 @@ const SearchResults = ({ albums = [], artistName = '', loading = false, error = 
     if (!albums || albums.length === 0) return <div>No se encontraron álbumes{artistName ? ` para ${artistName}` : ''}.</div>;
 console.log(albums);
     return (   
-        <Fragment>     
+        <div>     
             {albums.map((album, idx) => (                
-                <div key={idx}>
-                    <div>{album.nombre}</div>
-                    <div>{album.año}</div>
-                    <button onClick={e => handleVerMas && handleVerMas(e, album)}>Ver Más</button>
-                </div>
+                <MusicSlot año={album.año} key={idx}>
+                    <AlbumInfo>{album.nombre}</AlbumInfo>
+                    <AlbumYear>Lanzamiento: {album.año}</AlbumYear>
+                    <StyledButton onClick={e => handleVerMas && handleVerMas(e, album)}>Ver Más</StyledButton>
+                </MusicSlot>
             ))}
-        </Fragment>
+        </div>
     );
 }
 

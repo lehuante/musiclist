@@ -1,5 +1,7 @@
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { StyledButton } from '../SearchResults/styles';
+import { AlbumName, DetailContainer } from './styles';
 
 const SongDetail = () => {
     const location = useLocation();
@@ -10,15 +12,12 @@ const SongDetail = () => {
     if (!nombre) return <div>No hay detalles para mostrar.</div>;
 
     return (
-        <div>
+        <DetailContainer>   
             <h2>Detalles del Álbum</h2>
-            <p>Artista: {artist}</p>
-            <p>Nombre del álbum: {nombre}</p>
+            <AlbumName>Nombre del álbum: {nombre}</AlbumName>
             <p>Año de lanzamiento: {año}</p>
-            <button onClick={() => navigate('/')}>Regresar</button>
-
-
-        </div>
+            <StyledButton onClick={() => navigate('/')}>Regresar</StyledButton>
+        </DetailContainer>
     );
 };
 

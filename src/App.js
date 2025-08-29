@@ -1,14 +1,14 @@
-import React, {useState,useEffect} from 'react'
-import './App.css';
+import {useState} from 'react'
 import Header from './Components/Header';
-import HeaderB from './Components/Headerb';
 import SearchResults from './Components/SearchResults'; 
-import Library from './Components/Library';
-import SongInfo from './Components/SongInfo'; 
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import SearchBar from './Components/SearchBar';
 import useFetch from './hooks/useFetch';
 import SongDetail from './Components/SongDetail';
+import { ThemeProvider } from 'styled-components';
+import Theme from './theme';
+import GlobalStyle from './theme/GlobalStyle';
+
 
 
 function App() {
@@ -22,7 +22,6 @@ function App() {
   }; 
   const navigate = useNavigate();
   const handleVerMas = (e, album) => {
-    // Navega a la ruta y pasa los datos del álbum
     navigate(`/song/id`, {
         state: {
             nombre: album.nombre || album.strAlbum,
@@ -34,17 +33,10 @@ function App() {
   };
   
  
-  
-   /* const handleClick = (e, cancion) => {
-    console.log('Canción clicada:', cancion.title); 
-    setTrack(prevTrack => [...prevTrack, cancion]);
-   };
-  
-  useEffect(() => {
-    console.log("Actualizado");
-  }, [data]);*/
 
   return (
+    <ThemeProvider theme={Theme}>
+    <GlobalStyle />
     <div className="App">
       <Routes>
         <Route path="/" element={
@@ -57,6 +49,7 @@ function App() {
         <Route path='/song/:id' element={<SongDetail />} />
       </Routes>
     </div>
+    </ThemeProvider>
   );
 }
 
