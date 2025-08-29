@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { SearchForm } from './styles';
 
 const SearchBar = ({ onSearch }) => {
     const [artist, setArtist] = useState('');
@@ -13,10 +14,11 @@ const SearchBar = ({ onSearch }) => {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
+        <SearchForm onSubmit={handleSubmit}>
+            <h3>Busqueda</h3>
             <input type="text" value={artist} onChange={e => setArtist(e.target.value)} placeholder="Nombre artista"/>
             <button type="submit">Buscar</button>
-        </form>
+        </SearchForm>
     );
 };
 
